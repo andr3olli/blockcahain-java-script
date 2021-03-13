@@ -23,5 +23,25 @@ class Block{
     }
 
 }
+class BlockChain{
+
+    constructor() {
+        this.chain = [this.startGenisisBlock]
+    }
+
+    startGenisisBlock() {
+        return new Block(0,"13/03/2020", "Initial Block in the Chain", "0")
+    }
+
+    obtainLastBlock() {
+        return this.chain[this.chain.length-1]
+    }
+    
+    addNewBlock(newBlock){
+        newBlock.precedingHash = this.obtainLastBlock().hash
+        newBlock.hash = newBlock.computeHash()
+        this.chain.push(newBlock)
+    }
 
 
+}
