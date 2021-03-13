@@ -25,18 +25,23 @@ class Block{
 }
 class BlockChain{
 
+    //creats chain with genesis block refers to startGenesisblock
     constructor() {
         this.chain = [this.startGenisisBlock()]
     }
 
+    //creates the genesis block
     startGenisisBlock() {
         return new Block(0,"13/03/2020", "Initial Block in the Chain", "0")
     }
 
+    //gets the latest block of the chain to grab the hash
     obtainLastBlock() {
         return this.chain[this.chain.length-1]
     }
     
+    //adds a new block to the chain array. Takes a block object and also
+    //asigns it the previous hash and the new hash 
     addNewBlock(newBlock){
         newBlock.precedingHash = this.obtainLastBlock().hash
         newBlock.hash = newBlock.computeHash()
@@ -44,10 +49,35 @@ class BlockChain{
     }
 
 
+    checkChainvValidity() {
+        for (let index = 1; index < this.chain.length; index++) {
+            
+            const currentBlock = this.chain[index]
+            const prevBlock = this.chain[index-1]
+
+            if (currentBlock.hash != currentBlock.computeHash ) {
+               return false; 
+            }
+            
+            if (prevBlock.hash != currentBlock.precedingHash) {
+                return false;
+            }
+        }
+
+        return true
+
+    }
+
 }
+
+
+// creats a blockchain called andr3olli
+// adds two blocks to this chain --> the "newBlock" param in addNewBlock
+// refers to Block object
 
 let andr3olli = new BlockChain();
 andr3olli.addNewBlock(new Block(1, "01/06/2020", {sender: "Iris Ljesnjanin", recipient: "Cosima Mielke", quantity: 50}))
 andr3olli.addNewBlock(new Block(2, "01/07/2020", {sender: "Vitaly Friedman", recipient: "Ricardo Gimenes", quantity: 100}))
 
+// logs the chain in the console
 console.log(JSON.stringify(andr3olli, null, 5))
