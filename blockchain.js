@@ -26,7 +26,7 @@ class Block{
 class BlockChain{
 
     constructor() {
-        this.chain = [this.startGenisisBlock]
+        this.chain = [this.startGenisisBlock()]
     }
 
     startGenisisBlock() {
@@ -45,3 +45,9 @@ class BlockChain{
 
 
 }
+
+let andr3olli = new BlockChain();
+andr3olli.addNewBlock(new Block(1, "01/06/2020", {sender: "Iris Ljesnjanin", recipient: "Cosima Mielke", quantity: 50}))
+andr3olli.addNewBlock(new Block(2, "01/07/2020", {sender: "Vitaly Friedman", recipient: "Ricardo Gimenes", quantity: 100}))
+
+console.log(JSON.stringify(andr3olli, null, 5))
